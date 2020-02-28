@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TollRoadsApp</string>
+    <string name="application_name">Калькулятор платных дорог</string>
+    <string name="switch_direction">Из Москвы</string>
+    <string name="check_avtodor">Транспондер Автодор</string>
+    <string name="check_custom_time">Время вручную</string>
+    <string name="button_calculate">Рассчитать</string>
+    <string name="title_road">Дорога:</string>
+    <string name="title_from">Отправление из:</string>
+    <string name="title_to">Конец дороги:</string>
+</resources>
