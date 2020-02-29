@@ -25,6 +25,7 @@ public class TollRoadViewModel extends ViewModel {
     private final MutableLiveData<List<TollRoadPart>> roadParts = new MutableLiveData<>();
     private final MutableLiveData<List<String>> roadPartsFrom = new MutableLiveData<>();
     private final MutableLiveData<List<String>> roadPartsTo = new MutableLiveData<>();
+    private final MutableLiveData<Integer> category = new MutableLiveData<>();
     private final SingleLiveEvent<String> errors = new SingleLiveEvent<>();
 
     public TollRoadViewModel(TollRoadDatabase db,
@@ -36,6 +37,7 @@ public class TollRoadViewModel extends ViewModel {
         this.tollRoadsInteractor = tollRoadsInteractor;
         this.downloadTollRoadInteractor = downloadTollRoadInteractor;
         insertTollRoadsData();
+        category.postValue(1);
     }
 
     void insertTollRoadsData() {
@@ -44,6 +46,8 @@ public class TollRoadViewModel extends ViewModel {
             public void run() {
                 try {
                     downloadTollRoadInteractor.insertTollRoadsData();
+                    loadRoadNames();
+                    loadRoadPartsFrom("М-3", true);
                 } catch (LoadTollRoadDataException e) {
                     errors.postValue("Ошибка при обновлении данных с сервера");
                 }
@@ -79,6 +83,7 @@ public class TollRoadViewModel extends ViewModel {
     }
 
     public void loadRoadPartsFrom(String selectedItem, boolean checked) {
+        System.out.println("Road for \"" + selectedItem+"\"");
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -88,12 +93,13 @@ public class TollRoadViewModel extends ViewModel {
                 List<String> tempTo = new ArrayList<>();
                 for (TollRoadPart element :
                         roadParts) {
-                    if(checked){
-                        tempFrom.add(element.getKm_start()+"");
-                        tempTo.add(element.getKm_end()+"");
-                    }else{
-                        tempTo.add(element.getKm_start()+"");
-                        tempFrom.add(element.getKm_end()+"");
+                    System.out.println("sdasd + " + element.getPart_name());
+                    if (checked) {
+                        tempFrom.add(element.getKm_start() + "");
+                        tempTo.add(element.getKm_end() + "");
+                    } else {
+                        tempTo.add(element.getKm_start() + "");
+                        tempFrom.add(element.getKm_end() + "");
                     }
                 }
                 TollRoadViewModel.this.roadPartsFrom.postValue(tempFrom);
@@ -103,4 +109,7 @@ public class TollRoadViewModel extends ViewModel {
     }
 
 
+    public void setCategory(int category) {
+        this.category.postValue(category);
+    }
 }

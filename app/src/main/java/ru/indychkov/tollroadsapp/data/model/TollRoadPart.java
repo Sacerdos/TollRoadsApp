@@ -19,7 +19,7 @@ import static androidx.room.ForeignKey.CASCADE;
         childColumns = "main_road_name",
         onDelete = CASCADE),
         indices = {@Index(value = "main_road_name"),
-        @Index(value = "part_name", unique = true)})
+                @Index(value = "part_name", unique = true)})
 public class TollRoadPart {
     @PrimaryKey()
     @ColumnInfo(name = "part_id")
@@ -51,6 +51,26 @@ public class TollRoadPart {
     @SerializedName("section_order")
     @Expose
     private double section_order;
+
+    @ColumnInfo(name = "isFromMoscow")
+    @SerializedName("isFromMoscow")
+    @Expose
+    private boolean isFromMoscow;
+
+    @ColumnInfo(name = "isToMoscow")
+    @SerializedName("isToMoscow")
+    @Expose
+    private boolean isToMoscow;
+
+    @ColumnInfo(name = "isOut")
+    @SerializedName("isOut")
+    @Expose
+    private boolean isOut;
+
+    @ColumnInfo(name = "isIn")
+    @SerializedName("isIn")
+    @Expose
+    private boolean isIn;
 
     public long getPart_id() {
         return part_id;
@@ -100,17 +120,52 @@ public class TollRoadPart {
         this.section_order = section_order;
     }
 
+    public boolean isFromMoscow() {
+        return isFromMoscow;
+    }
+
+    public void setFromMoscow(boolean fromMoscow) {
+        isFromMoscow = fromMoscow;
+    }
+
+    public boolean isToMoscow() {
+        return isToMoscow;
+    }
+
+    public void setToMoscow(boolean toMoscow) {
+        isToMoscow = toMoscow;
+    }
+
+    public boolean isOut() {
+        return isOut;
+    }
+
+    public void setOut(boolean out) {
+        isOut = out;
+    }
+
+    public boolean isIn() {
+        return isIn;
+    }
+
+    public void setIn(boolean in) {
+        isIn = in;
+    }
+
     @Ignore
     @Override
     public String toString() {
         return "TollRoadPart{" +
                 "part_id=" + part_id +
-                ", main_road_name=" + main_road_name +
+                ", main_road_name='" + main_road_name + '\'' +
+                ", part_name='" + part_name + '\'' +
                 ", km_start=" + km_start +
                 ", km_end=" + km_end +
                 ", section_order=" + section_order +
-/*                ", isFromMoscow=" + isFromMoscow +
-                ", isToMoscow=" + isToMoscow +*/
+                ", isFromMoscow=" + isFromMoscow +
+                ", isToMoscow=" + isToMoscow +
+                ", isOut=" + isOut +
+                ", isIn=" + isIn +
                 '}';
     }
 }

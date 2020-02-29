@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -59,7 +59,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
 
+            <CheckBox
+                android:id="@+id/check_1_cat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="1 кат"
+                />
+            <CheckBox
+                android:id="@+id/check_2_cat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="2 кат" />
+            <CheckBox
+                android:id="@+id/check_3_cat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="3 кат" />
+            <CheckBox
+                android:id="@+id/check_4_cat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="4 кат"/>
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,12 +103,12 @@
                 android:layout_margin="5dp"
                 android:text="@string/check_avtodor" />
 
-            <CheckBox
+<!--            <CheckBox
                 android:id="@+id/check_custom_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="@string/check_custom_time" />
+                android:text="@string/check_custom_time" />-->
 
 
         </LinearLayout>
@@ -95,14 +126,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             tools:text="sadsad" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            tools:itemCount="20" />
+
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linear_layout_menu"
-        android:layout_margin="10dp" />
-
-
-</RelativeLayout>
+</ScrollView>
