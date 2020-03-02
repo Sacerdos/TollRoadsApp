@@ -43,7 +43,7 @@ public class DownloadTollRoadInteractor {
                             List<TollRoadName> names,
                             List<TollRoadPart> parts,
                             List<TollRoadPrice> prices) {
-            System.out.println("Ошибка5");
+
             this.db = db;
             this.names = names;
             this.parts = parts;
@@ -53,7 +53,7 @@ public class DownloadTollRoadInteractor {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            System.out.println("Ошибка6");
+
             for (TollRoadName element :
                     names) {
                 db.tollRoadDAO().addTollRoadName(element);
@@ -72,8 +72,6 @@ public class DownloadTollRoadInteractor {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            System.out.println("Ошибка7");
-
         }
     }
 }

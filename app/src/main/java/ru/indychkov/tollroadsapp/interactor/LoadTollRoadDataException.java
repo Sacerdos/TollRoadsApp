@@ -4,6 +4,6 @@ public class LoadTollRoadDataException extends Exception {
     public LoadTollRoadDataException(String message, Throwable cause) {
 
         super(message, cause);
-        System.out.println("Ошибка1" + message+cause);
+        System.out.println("Ошибка " + message+cause);
     }
 }

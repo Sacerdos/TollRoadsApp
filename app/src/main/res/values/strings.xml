@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TollRoadsApp</string>
+    <string name="app_name">Калькулятор платных дорог</string>
     <string name="application_name">Калькулятор платных дорог</string>
     <string name="switch_direction">Из Москвы</string>
     <string name="check_avtodor">Транспондер Автодор</string>

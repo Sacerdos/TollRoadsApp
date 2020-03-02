@@ -14,10 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ru.indychkov.tollroadsapp.R;
+import ru.indychkov.tollroadsapp.data.model.TollRoadPart;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
     private Context context;
-    private List<String> mPersonList;
+    private List<TollRoadPart> mPersonList;
+
     public RecyclerViewAdapter(Context context) {
         this.context = context;
     }
@@ -31,7 +33,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.textView.setText(mPersonList.get(position));
+        holder.textView.setText((mPersonList.get(position).getSection_order() + " " + mPersonList.get(position).getPart_name()));
     }
 
     @Override
@@ -41,20 +43,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
         return mPersonList.size();
     }
-    public void setTasks(List<String> personList) {
+
+    public void setTasks(List<TollRoadPart> personList) {
         mPersonList = personList;
         notifyDataSetChanged();
     }
 
-    public List<String> getTasks() {
+    public List<TollRoadPart> getTasks() {
 
         return mPersonList;
     }
+
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView=itemView.findViewById(R.id.ter);
+            textView = itemView.findViewById(R.id.ter);
         }
     }
 }

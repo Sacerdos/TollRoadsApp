@@ -22,10 +22,18 @@ public class TollRoadViewModel extends ViewModel {
     private final TollRoadsInteractor tollRoadsInteractor;
     private final DownloadTollRoadInteractor downloadTollRoadInteractor;
     private final MutableLiveData<List<String>> roadNames = new MutableLiveData<>();
-    private final MutableLiveData<List<TollRoadPart>> roadParts = new MutableLiveData<>();
+    private final MutableLiveData<List<TollRoadPart>> allRoadParts = new MutableLiveData<>();
     private final MutableLiveData<List<String>> roadPartsFrom = new MutableLiveData<>();
     private final MutableLiveData<List<String>> roadPartsTo = new MutableLiveData<>();
     private final MutableLiveData<Integer> category = new MutableLiveData<>();
+    private final MutableLiveData<Double> sectionFrom = new MutableLiveData<>();
+    private final MutableLiveData<Double> sectionTo = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isOut = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isIn = new MutableLiveData<>();
+    private String tempNameFrom;
+    private String tempNameTo;
+    private final MutableLiveData<Boolean> isFromMoscow = new MutableLiveData<>();
+    private final MutableLiveData<List<TollRoadPart>> finalPath = new MutableLiveData<>();
     private final SingleLiveEvent<String> errors = new SingleLiveEvent<>();
 
     public TollRoadViewModel(TollRoadDatabase db,
@@ -38,36 +46,42 @@ public class TollRoadViewModel extends ViewModel {
         this.downloadTollRoadInteractor = downloadTollRoadInteractor;
         insertTollRoadsData();
         category.postValue(1);
+        isFromMoscow.postValue(true);
+        sectionFrom.postValue(0.0);
+        sectionTo.postValue(0.0);
+        isIn.postValue(false);
+        isOut.postValue(false);
     }
 
     void insertTollRoadsData() {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    downloadTollRoadInteractor.insertTollRoadsData();
-                    loadRoadNames();
-                    loadRoadPartsFrom("М-3", true);
-                } catch (LoadTollRoadDataException e) {
-                    errors.postValue("Ошибка при обновлении данных с сервера");
-                }
+        executor.execute(() -> {
+            try {
+                downloadTollRoadInteractor.insertTollRoadsData();
+                loadRoadNames();
+                loadFromRoadParts("М-3");
+            } catch (LoadTollRoadDataException e) {
+                errors.postValue("Ошибка при обновлении данных с сервера");
             }
         });
     }
 
     void loadRoadNames() {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                roadNames.postValue(tollRoadsInteractor.getRoadNames());
-
-            }
-        });
+        executor.execute(() -> roadNames.postValue(tollRoadsInteractor.getRoadNames()));
     }
 
     @NonNull
     LiveData<List<String>> getRoadNames() {
         return roadNames;
+    }
+
+    @NonNull
+    LiveData<Double> getSectionFrom() {
+        return sectionFrom;
+    }
+
+    @NonNull
+    LiveData<Double> getSectionTo() {
+        return sectionTo;
     }
 
     public MutableLiveData<List<String>> getRoadPartsFrom() {
@@ -78,38 +92,186 @@ public class TollRoadViewModel extends ViewModel {
         return roadPartsTo;
     }
 
+    @NonNull
+    public MutableLiveData<List<TollRoadPart>> getFinalPath() {
+        return finalPath;
+    }
+
     public SingleLiveEvent<String> getErrors() {
         return errors;
     }
 
-    public void loadRoadPartsFrom(String selectedItem, boolean checked) {
-        System.out.println("Road for \"" + selectedItem+"\"");
+    public void loadFromRoadParts(String selectedRoad) {
+        executor.execute(() -> {
+            List<TollRoadPart> roadPart;
+            if (isFromMoscow.getValue()) {
+                roadPart = tollRoadsInteractor.getAllPartsFromMoscow(selectedRoad);
+            } else {
+                roadPart = tollRoadsInteractor.getAllPartsToMoscow(selectedRoad);
+            }
+            TollRoadViewModel.this.allRoadParts.postValue(roadPart);
+            List<String> tempFrom = new ArrayList<>();
+            List<String> tempTo = new ArrayList<>();
+            for (TollRoadPart element :
+                    roadPart) {
+                if (isFromMoscow.getValue()) {
+                    System.out.println("sprinnerFrom" + element.toString());
+                    System.out.println(element.isIn());
+                    tempFrom.add(element.getKm_start() + " km " + (element.isIn() ? "in" : "") + (element.isOut() ? "out" : ""));
+                } else {
+                    tempFrom.add(element.getKm_end() + " km " + (element.isIn() ? "in" : "") + (element.isOut() ? "out" : ""));
+                }
+            }
+            TollRoadViewModel.this.roadPartsFrom.postValue(tempFrom);
+            roadPartsTo.postValue(tempTo);
+        });
+    }
+
+    public void loadToRoadParts(String selectedRoad) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                List<TollRoadPart> roadParts = tollRoadsInteractor.getRoadPart(selectedItem);
-                TollRoadViewModel.this.roadParts.postValue(roadParts);
-                List<String> tempFrom = new ArrayList<>();
-                List<String> tempTo = new ArrayList<>();
-                for (TollRoadPart element :
-                        roadParts) {
-                    System.out.println("sdasd + " + element.getPart_name());
-                    if (checked) {
-                        tempFrom.add(element.getKm_start() + "");
-                        tempTo.add(element.getKm_end() + "");
+                List<String> roadToParts = new ArrayList<>();
+                if (allRoadParts.getValue() != null) {
+                    if (isFromMoscow.getValue()) {
+                        for (TollRoadPart element :
+                                allRoadParts.getValue()) {
+                            if ((element.getSection_order() > sectionFrom.getValue() || element.getPart_name().equals(tempNameFrom)) &&
+                                    ((!element.isIn()) || element.getPart_name().equals(tempNameFrom))) {
+                                roadToParts.add(element.getKm_end() + " km " + (element.isOut() ? "out" : ""));
+                            }
+
+                        }
                     } else {
-                        tempTo.add(element.getKm_start() + "");
-                        tempFrom.add(element.getKm_end() + "");
+                        for (TollRoadPart element :
+                                allRoadParts.getValue()) {
+                            if ((element.getSection_order() < sectionFrom.getValue() || element.getPart_name().equals(tempNameFrom)) &&
+                                    (!element.isIn() || element.getPart_name().equals(tempNameFrom))) {
+                                roadToParts.add(element.getKm_start() + " km " + (element.isOut() ? "out" : ""));
+                            }
+
+                        }
                     }
+                    roadPartsTo.postValue(roadToParts);
                 }
-                TollRoadViewModel.this.roadPartsFrom.postValue(tempFrom);
-                TollRoadViewModel.this.roadPartsTo.postValue(tempTo);
+
+
             }
         });
     }
 
+    public void loadFinalPath(String selectedRoad) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                List<TollRoadPart> finalData = new ArrayList<>();
+                List<TollRoadPart> data = tollRoadsInteractor.getFinalPath(selectedRoad, isFromMoscow.getValue(),
+                        Math.min(sectionFrom.getValue(), sectionTo.getValue()), Math.max(sectionFrom.getValue(), sectionTo.getValue()));
+                for (TollRoadPart element :
+                        data) {
+                    System.out.println(element.toString());
+                    if(isFromMoscow.getValue()){
+                        if(element.getSection_order()==Math.min(sectionFrom.getValue(), sectionTo.getValue())){
+                            if(tempNameFrom.equals(element.getPart_name())){
+                                finalData.add(element);
+                            }
+                        } else{
+                            if(element.getSection_order()<Math.max(sectionFrom.getValue(), sectionTo.getValue())){
+                                if(!element.isIn() && !element.isOut()){
+                                    finalData.add(element);
+                                }
+                            }
+                            if(element.getSection_order()==Math.max(sectionFrom.getValue(), sectionTo.getValue())){
+                                if(!element.isIn()){
+                                    if(tempNameTo.equals(element.getPart_name())){
+                                        finalData.add(element);
+                                    }
+                                }
+                            }
+                        }
+
+                    } else{
+                        if(element.getSection_order()==Math.max(sectionFrom.getValue(), sectionTo.getValue())){
+                            if(tempNameFrom.equals(element.getPart_name())){
+                                finalData.add(element);
+                            }
+                        } else{
+                            if(element.getSection_order()>Math.min(sectionFrom.getValue(), sectionTo.getValue())){
+                                if(!element.isIn() && !element.isOut()){
+                                    finalData.add(element);
+                                }
+                            }
+                            if(element.getSection_order()==Math.min(sectionFrom.getValue(), sectionTo.getValue())){
+                                if(tempNameTo.equals(element.getPart_name())){
+                                    finalData.add(element);
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+
+                finalPath.postValue(finalData);
+            }
+        });
+
+    }
 
     public void setCategory(int category) {
         this.category.postValue(category);
     }
+
+    public void setIsFromMoscow(boolean isFromMoscow) {
+        this.isFromMoscow.postValue(isFromMoscow);
+    }
+
+    public void setFromSection(String stringFrom, int position) {
+        String[] data = stringFrom.split(" ");
+        int km = Integer.valueOf(data[0]);
+        boolean isInSelected = stringFrom.contains("in");
+        boolean isOutSelected = stringFrom.contains("out");
+        for (int i = 0; i < allRoadParts.getValue().size(); i++) {
+            if ((isFromMoscow.getValue() && allRoadParts.getValue().get(i).getKm_start() == km) ||
+                    (!isFromMoscow.getValue() && allRoadParts.getValue().get(i).getKm_end() == km)) {
+                if (allRoadParts.getValue().get(i).isIn() == isInSelected && !isOutSelected) {
+                    this.isIn.postValue(isInSelected);
+                    this.sectionFrom.postValue(allRoadParts.getValue().get(i).getSection_order());
+                    tempNameFrom = allRoadParts.getValue().get(i).getPart_name();
+
+                    break;
+                } else {
+                    if (allRoadParts.getValue().get(i).isOut() == isOutSelected) {
+                        this.isIn.postValue(isOutSelected);
+                        this.sectionFrom.postValue(allRoadParts.getValue().get(i).getSection_order());
+                        tempNameFrom = allRoadParts.getValue().get(i).getPart_name();
+
+                        break;
+                    }
+                }
+            }
+
+        }
+    }
+
+    public void setToSection(String stringFrom, int position) {
+        String[] data = stringFrom.split(" ");
+        int km = Integer.valueOf(data[0]);
+
+        boolean isOutSelected = stringFrom.contains("out");
+        for (int i = 0; i < allRoadParts.getValue().size(); i++) {
+            if ((isFromMoscow.getValue() && allRoadParts.getValue().get(i).getKm_end() == km) ||
+                    (!isFromMoscow.getValue() && allRoadParts.getValue().get(i).getKm_start() == km)) {
+                if (allRoadParts.getValue().get(i).isOut() == isOutSelected) {
+                    this.isIn.postValue(isOutSelected);
+                    this.sectionTo.postValue(allRoadParts.getValue().get(i).getSection_order());
+                    tempNameTo = allRoadParts.getValue().get(i).getPart_name();
+
+                    break;
+                }
+            }
+        }
+    }
+
+
 }

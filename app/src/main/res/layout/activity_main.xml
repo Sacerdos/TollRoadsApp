@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,14 +16,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:text="@string/application_name" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_road"
-            android:layout_margin="5dp"/>
+            android:text="@string/title_road" />
+
         <Spinner
             android:id="@+id/roads_spinner"
             android:layout_width="match_parent"
@@ -39,26 +34,31 @@
             android:checked="true"
             android:switchPadding="20dp"
             android:text="@string/switch_direction" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_from"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:text="@string/title_from" />
+
         <Spinner
             android:id="@+id/from_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_to"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:text="@string/title_to" />
+
         <Spinner
             android:id="@+id/to_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,28 +69,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="1 кат"
-                />
+                android:text="1 кат" />
+
             <CheckBox
                 android:id="@+id/check_2_cat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="2 кат" />
+
             <CheckBox
                 android:id="@+id/check_3_cat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="3 кат" />
+
             <CheckBox
                 android:id="@+id/check_4_cat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="4 кат"/>
+                android:text="4 кат" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,29 +106,16 @@
                 android:layout_margin="5dp"
                 android:text="@string/check_avtodor" />
 
-<!--            <CheckBox
-                android:id="@+id/check_custom_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="@string/check_custom_time" />-->
-
-
         </LinearLayout>
 
         <Button
-            android:id="@+id/calculate_button"
+            android:id="@+id/button_calculate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/button_calculate" />
+            android:text="@string/button_calculate"
+            android:enabled="false"/>
 
-        <TextView
-            android:id="@+id/test_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            tools:text="sadsad" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
@@ -134,5 +124,4 @@
             tools:itemCount="20" />
 
     </LinearLayout>
-
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
