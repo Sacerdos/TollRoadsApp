@@ -3,15 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="@dimen/standart_me"
     android:background="@android:drawable/dialog_holo_light_frame">
 
     <TextView
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/standart_me"
         android:id="@+id/ter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="asfafasf"
         android:textColor="#000000"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 </LinearLayout>

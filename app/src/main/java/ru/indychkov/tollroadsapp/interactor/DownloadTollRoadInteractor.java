@@ -64,6 +64,7 @@ public class DownloadTollRoadInteractor {
             }
             for (TollRoadPrice element :
                     prices) {
+                System.out.println("error" + element.toString());
                 db.tollRoadDAO().addTollRoadPrice(element);
             }
             return null;

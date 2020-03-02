@@ -155,6 +155,8 @@ public class TollRoadMainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switchIsFromMoscow.setEnabled(true);
+                switchIsFromMoscow.setChecked(true);
+                tollRoadViewModel.setIsFromMoscow(true);
                 selectedRoad = spinnerRoad.getSelectedItem().toString();
                 tollRoadViewModel.loadFromRoadParts(selectedRoad);
             }

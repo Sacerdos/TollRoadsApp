@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/standart_me"
             android:text="@string/title_road"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#000000" />
@@ -26,7 +26,7 @@
             android:id="@+id/roads_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/standart_me"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <Switch
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/standart_me"
             android:checked="true"
             android:switchPadding="20dp"
             android:text="@string/switch_direction"
@@ -44,7 +44,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/standart_me"
             android:text="@string/title_from"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#000000" />
@@ -53,13 +53,13 @@
             android:id="@+id/from_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/standart_me"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/standart_me"
             android:text="@string/title_to"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#000000" />
@@ -68,19 +68,19 @@
             android:id="@+id/to_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/standart_me"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp">
+            android:layout_marginTop="@dimen/standart_me">
 
             <CheckBox
                 android:id="@+id/check_1_cat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="@dimen/standart_me"
                 android:text="1 кат"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -88,7 +88,7 @@
                 android:id="@+id/check_2_cat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="@dimen/standart_me"
                 android:text="2 кат"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -96,7 +96,7 @@
                 android:id="@+id/check_3_cat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="@dimen/standart_me"
                 android:text="3 кат"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -104,50 +104,47 @@
                 android:id="@+id/check_4_cat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="@dimen/standart_me"
                 android:text="4 кат"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <CheckBox
+            android:id="@+id/check_avtodor"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp">
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/standart_me"
+            android:text="@string/check_avtodor"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-            <CheckBox
-                android:id="@+id/check_avtodor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="@string/check_avtodor"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        <Switch
+            android:id="@+id/isNight_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/standart_me"
 
-            <Switch
-                android:id="@+id/isNight_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
+            android:checked="false"
+            android:switchPadding="10dp"
+            android:text="@string/text_switch_night"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-                android:checked="false"
-                android:switchPadding="20dp"
-                android:text="Ночь"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp">
+            android:layout_margin="@dimen/standart_me">
 
             <TextView
                 android:id="@+id/textview_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="@dimen/standart_me"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#000000"
                 android:textSize="28sp"
@@ -158,7 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/standart_me"
                 android:layout_marginEnd="30dp"
                 android:enabled="false"
                 android:gravity="right"
