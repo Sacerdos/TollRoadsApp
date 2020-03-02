@@ -17,10 +17,10 @@ import ru.indychkov.tollroadsapp.data.model.TollRoadPrice;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
     private Context context;
     private List<TollRoadPrice> priceList;
-    boolean isNight;
-    boolean hasAvtodor;
+    private boolean isNight;
+    private boolean hasAvtodor;
 
-    public RecyclerViewAdapter(Context context) {
+    RecyclerViewAdapter(Context context) {
         this.context = context;
     }
 
@@ -47,7 +47,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 price = priceList.get(position).getBase_price() + " \u20BD";
             }
         }
-        holder.textView.setText(String.format("%s\n%d категория\n%s", priceList.get(position).getPart_name(), priceList.get(position).getCategory(), price));
+        holder.textView.setText(String.format("%s\n%d категория\n%s", priceList.get(position).getPart_name(),
+                priceList.get(position).getCategory(),
+                price));
 
     }
 
@@ -59,7 +61,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return priceList.size();
     }
 
-    public int getSum() {
+    int getSum() {
         int sum = 0;
         for (TollRoadPrice element :
                 this.priceList) {
@@ -80,7 +82,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return sum;
     }
 
-    public void setTasks(List<TollRoadPrice> personList, boolean isNight, boolean hasAvtodor) {
+    void setTasks(List<TollRoadPrice> personList, boolean isNight, boolean hasAvtodor) {
         priceList = personList;
         this.isNight = isNight;
         this.hasAvtodor = hasAvtodor;
@@ -96,7 +98,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
 
-        public MyViewHolder(@NonNull View itemView) {
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.ter);
         }

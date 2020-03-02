@@ -1,19 +1,16 @@
 package ru.indychkov.tollroadsapp.presentation;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -44,46 +41,10 @@ public class TollRoadMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+        initListeners();
         setup();
 
     }
-
-    private void setup() {
-        ViewModelProvider viewModelProvider = ViewModelProviders.of(this, new TollRoadViewModelFactory(this));
-        tollRoadViewModel = viewModelProvider.get(TollRoadViewModel.class);
-        tollRoadViewModel.getRoadNames().observe(this, roadNames -> {
-            spinnerRoad.setAdapter(new CustomSpinnerAdapter(roadNames));
-        });
-
-        tollRoadViewModel.getRoadPartsFrom().observe(this, roadFrom -> {
-            spinnerFrom.setAdapter(new CustomSpinnerAdapter(roadFrom));
-            spinnerTo.setAdapter(null);
-        });
-
-        tollRoadViewModel.getRoadPartsTo().observe(this, roadTo -> spinnerTo.setAdapter(new CustomSpinnerAdapter(roadTo)));
-
-        tollRoadViewModel.getErrors().observe(this, error ->
-                Toast.makeText(this, error, Toast.LENGTH_LONG).show());
-
-        tollRoadViewModel.getSectionFrom().observe(this, sectionFrom -> {
-            tollRoadViewModel.loadToRoadParts(selectedRoad);
-        });
-
-        tollRoadViewModel.getFinalPath().observe(this, roadTo -> {
-            tollRoadViewModel.loadPrices();
-
-        });
-        tollRoadViewModel.getPrices().observe(this, prices -> {
-            recyclerViewAdapter.setTasks(prices, tollRoadViewModel.isNight(), tollRoadViewModel.isHasAvtodor());
-            pathRecyclerView.setAdapter(recyclerViewAdapter);
-            resultText.setText(String.format("%d \u20BD", recyclerViewAdapter.getSum()));
-
-        });
-
-
-        tollRoadViewModel.loadRoadNames();
-    }
-
     private void initViews() {
         pathRecyclerView = findViewById(R.id.recycler_view);
         buttonCalculate = findViewById(R.id.button_calculate);
@@ -105,24 +66,13 @@ public class TollRoadMainActivity extends AppCompatActivity {
         pathRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewAdapter = new RecyclerViewAdapter(this);
 
-        switchIsNight.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                tollRoadViewModel.setNight(isChecked);
-            }
-        });
 
-        checkHasAvtodor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                tollRoadViewModel.setHasAvtodor(isChecked);
-            }
-        });
-
+    }
+    private void initListeners() {
+        switchIsNight.setOnCheckedChangeListener((buttonView, isChecked) -> tollRoadViewModel.setNight(isChecked));
+        checkHasAvtodor.setOnCheckedChangeListener((buttonView, isChecked) -> tollRoadViewModel.setHasAvtodor(isChecked));
         switchIsFromMoscow.setOnCheckedChangeListener((buttonView, isChecked) -> {
-
             tollRoadViewModel.setIsFromMoscow(switchIsFromMoscow.isChecked());
-
             tollRoadViewModel.loadFromRoadParts(selectedRoad);
         });
         checkIs1Cat.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -149,8 +99,6 @@ public class TollRoadMainActivity extends AppCompatActivity {
                 setUnChecked(checkIs1Cat, checkIs2Cat, checkIs3Cat, 4);
             }
         });
-
-
         spinnerRoad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -160,44 +108,52 @@ public class TollRoadMainActivity extends AppCompatActivity {
                 selectedRoad = spinnerRoad.getSelectedItem().toString();
                 tollRoadViewModel.loadFromRoadParts(selectedRoad);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
-
         spinnerFrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 tollRoadViewModel.setFromSection(spinnerFrom.getSelectedItem().toString(), position);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
-
         spinnerTo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 buttonCalculate.setEnabled(true);
                 tollRoadViewModel.setToSection(spinnerTo.getSelectedItem().toString(), position);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
-        buttonCalculate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tollRoadViewModel.loadFinalPath(selectedRoad);
+        buttonCalculate.setOnClickListener(v -> tollRoadViewModel.loadFinalPath(selectedRoad));
+    }
 
-            }
+    private void setup() {
+        ViewModelProvider viewModelProvider = ViewModelProviders.of(this, new TollRoadViewModelFactory(this));
+        tollRoadViewModel = viewModelProvider.get(TollRoadViewModel.class);
+        tollRoadViewModel.getRoadNames().observe(this, roadNames -> spinnerRoad.setAdapter(new CustomSpinnerAdapter(roadNames)));
+        tollRoadViewModel.getRoadPartsFrom().observe(this, roadFrom -> {
+            spinnerFrom.setAdapter(new CustomSpinnerAdapter(roadFrom));
+            spinnerTo.setAdapter(null);
         });
+        tollRoadViewModel.getRoadPartsTo().observe(this, roadTo -> spinnerTo.setAdapter(new CustomSpinnerAdapter(roadTo)));
+        tollRoadViewModel.getErrors().observe(this, error ->
+                Toast.makeText(this, error, Toast.LENGTH_LONG).show());
+        tollRoadViewModel.getSectionFrom().observe(this, sectionFrom -> tollRoadViewModel.loadToRoadParts(selectedRoad));
+        tollRoadViewModel.getFinalPath().observe(this, roadTo -> tollRoadViewModel.loadPrices());
+        tollRoadViewModel.getPrices().observe(this, prices -> {
+            recyclerViewAdapter.setTasks(prices, tollRoadViewModel.isNight(), tollRoadViewModel.isHasAvtodor());
+            pathRecyclerView.setAdapter(recyclerViewAdapter);
+            resultText.setText(String.format("%d \u20BD", recyclerViewAdapter.getSum()));
+
+        });
+        tollRoadViewModel.loadRoadNames();
     }
 
     private void setUnChecked(CheckBox one, CheckBox two, CheckBox three, int category) {

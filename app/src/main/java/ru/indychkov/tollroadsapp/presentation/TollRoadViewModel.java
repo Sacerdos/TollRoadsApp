@@ -54,10 +54,10 @@ public class TollRoadViewModel extends ViewModel {
         hasAvtodor = false;
         isNight = false;
         isFromMoscow = true;
-        sectionFrom.postValue(0.0);
+/*        sectionFrom.postValue(0.0);
         sectionTo.postValue(0.0);
         isIn.postValue(false);
-        isOut.postValue(false);
+        isOut.postValue(false);*/
     }
 
     void insertTollRoadsData() {
@@ -65,7 +65,7 @@ public class TollRoadViewModel extends ViewModel {
             try {
                 downloadTollRoadInteractor.insertTollRoadsData();
                 loadRoadNames();
-                loadFromRoadParts("М-3");
+
             } catch (LoadTollRoadDataException e) {
                 errors.postValue("Ошибка при обновлении данных с сервера");
             }

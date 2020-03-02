@@ -8,7 +8,7 @@ import ru.indychkov.tollroadsapp.data.model.TollRoadPrice;
 import ru.indychkov.tollroadsapp.interactor.ITollRoadRepository;
 
 public class TollRoadRepository implements ITollRoadRepository {
-    TollRoadDatabase db;
+    private TollRoadDatabase db;
 
     public TollRoadRepository(TollRoadDatabase db) {
         this.db = db;

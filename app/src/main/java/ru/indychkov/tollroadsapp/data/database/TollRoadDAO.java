@@ -32,9 +32,6 @@ public interface TollRoadDAO {
     @Query("SELECT * from road_part WHERE main_road_name=:main_name")
     List<TollRoadPart> getAllPartsForRoad(String main_name);
 
-    @Query("SELECT * from road_part WHERE main_road_name=:main_name")
-    List<TollRoadPart> getToParts(String main_name);
-
     @Query("SELECT * from road_part WHERE main_road_name=:main_name AND isFromMoscow==1")
     List<TollRoadPart> getAllPartsFromMoscow(String main_name);
 

@@ -1,8 +1,7 @@
 package ru.indychkov.tollroadsapp.interactor;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-
-import androidx.annotation.NonNull;
 
 import java.io.IOException;
 import java.util.List;
@@ -33,16 +32,17 @@ public class DownloadTollRoadInteractor {
             throw new LoadTollRoadDataException("Ошибка с обновлением БД", e);
         }
     }
+    @SuppressLint("StaticFieldLeak")
     public class InsertDataDB extends AsyncTask<Void, Void, Void> {
         TollRoadDatabase db;
         List<TollRoadName> names;
         List<TollRoadPart> parts;
         List<TollRoadPrice> prices;
 
-        public InsertDataDB(TollRoadDatabase db,
-                            List<TollRoadName> names,
-                            List<TollRoadPart> parts,
-                            List<TollRoadPrice> prices) {
+        InsertDataDB(TollRoadDatabase db,
+                     List<TollRoadName> names,
+                     List<TollRoadPart> parts,
+                     List<TollRoadPrice> prices) {
 
             this.db = db;
             this.names = names;

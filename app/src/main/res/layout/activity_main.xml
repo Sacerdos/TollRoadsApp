@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +10,7 @@
         android:id="@+id/linear_layout_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/base_layout_margin"
         android:orientation="vertical">
 
         <TextView
@@ -20,7 +19,7 @@
             android:layout_margin="@dimen/standart_me"
             android:text="@string/title_road"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#000000" />
+            android:textColor="@color/standart_black" />
 
         <Spinner
             android:id="@+id/roads_spinner"
@@ -36,10 +35,10 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/standart_me"
             android:checked="true"
-            android:switchPadding="20dp"
+            android:switchPadding="@dimen/switch_padding"
             android:text="@string/switch_direction"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#000000" />
+            android:textColor="@color/standart_black" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,7 +46,7 @@
             android:layout_margin="@dimen/standart_me"
             android:text="@string/title_from"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#000000" />
+            android:textColor="@color/standart_black" />
 
         <Spinner
             android:id="@+id/from_spinner"
@@ -62,7 +61,7 @@
             android:layout_margin="@dimen/standart_me"
             android:text="@string/title_to"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#000000" />
+            android:textColor="@color/standart_black" />
 
         <Spinner
             android:id="@+id/to_spinner"
@@ -81,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/standart_me"
-                android:text="1 кат"
+                android:text="@string/cat1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <CheckBox
@@ -89,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/standart_me"
-                android:text="2 кат"
+                android:text="@string/cat2"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <CheckBox
@@ -97,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/standart_me"
-                android:text="3 кат"
+                android:text="@string/cat3"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <CheckBox
@@ -105,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/standart_me"
-                android:text="4 кат"
+                android:text="@string/cat4"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         </LinearLayout>
@@ -128,7 +127,7 @@
             android:layout_margin="@dimen/standart_me"
 
             android:checked="false"
-            android:switchPadding="10dp"
+            android:switchPadding="@dimen/switch_padding"
             android:text="@string/text_switch_night"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -143,11 +142,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="@dimen/result_margin_start"
                 android:layout_marginTop="@dimen/standart_me"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="#000000"
-                android:textSize="28sp"
+                android:textColor="@color/standart_black"
+                android:textSize="@dimen/textSizeResult"
                 tools:text="1000" />
 
             <Button
@@ -156,12 +155,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="@dimen/standart_me"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="@dimen/result_margin_start"
                 android:enabled="false"
-                android:gravity="right"
                 android:text="@string/button_calculate"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="#000000" />
+                android:textColor="@color/standart_black" />
         </RelativeLayout>
 
 
@@ -169,7 +167,7 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/base_layout_margin"
 
             tools:itemCount="20" />
 

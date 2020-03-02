@@ -1,26 +1,19 @@
 package ru.indychkov.tollroadsapp.interactor;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import java.util.List;
 
 import ru.indychkov.tollroadsapp.data.model.TollRoadPart;
 import ru.indychkov.tollroadsapp.data.model.TollRoadPrice;
 
-public class TollRoadsInteractor  {
+public class TollRoadsInteractor {
     private final ITollRoadRepository tollRoadRepository;
 
     public TollRoadsInteractor(ITollRoadRepository tollRoadRepository) {
         this.tollRoadRepository = tollRoadRepository;
     }
 
-    public List<String> getRoadNames(){
+    public List<String> getRoadNames() {
         return tollRoadRepository.getAllRoadsName();
-    }
-
-    public List<TollRoadPart> getAllRoadPart(String selectedRoad){
-        return tollRoadRepository.getAllRoadPart(selectedRoad);
     }
 
     public List<TollRoadPart> getAllPartsFromMoscow(String selectedRoad) {

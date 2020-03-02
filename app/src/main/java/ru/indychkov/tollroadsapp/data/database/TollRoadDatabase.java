@@ -17,7 +17,6 @@ import ru.indychkov.tollroadsapp.data.model.TollRoadPrice;
 
 @Database(entities = {TollRoadName.class, TollRoadPart.class, TollRoadPrice.class}, version = 1, exportSchema = false)
 public abstract class TollRoadDatabase extends RoomDatabase {
-    private static final String TAG = "TollRoadsDatabase";
     public abstract TollRoadDAO tollRoadDAO();
     private static final Object LOCK = new Object();
     private static volatile TollRoadDatabase sInstance;

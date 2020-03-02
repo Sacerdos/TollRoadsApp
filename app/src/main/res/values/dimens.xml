@@ -2,4 +2,9 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="standart_me">5dp</dimen>
+    <dimen name="spinner_text_view_padding">5dip</dimen>
+    <dimen name="base_layout_margin">10dp</dimen>
+    <dimen name="switch_padding">20dp</dimen>
+    <dimen name="result_margin_start">30dp</dimen>
+    <dimen name="textSizeResult">28sp</dimen>
 </resources>

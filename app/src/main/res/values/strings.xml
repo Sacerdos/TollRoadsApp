@@ -9,4 +9,8 @@
     <string name="title_from">Отправление из:</string>
     <string name="title_to">Конец дороги:</string>
     <string name="text_switch_night">Ночь</string>
+    <string name="cat1">1 кат</string>
+    <string name="cat2">2 кат</string>
+    <string name="cat3">3 кат</string>
+    <string name="cat4">4 кат</string>
 </resources>

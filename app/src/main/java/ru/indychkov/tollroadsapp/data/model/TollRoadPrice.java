@@ -1,5 +1,8 @@
 package ru.indychkov.tollroadsapp.data.model;
 
+
+
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -111,8 +114,10 @@ public class TollRoadPrice {
         this.base_avtodor_night_price = base_avtodor_night_price;
     }
 
+
     @Ignore
     @Override
+    @NonNull
     public String toString() {
         return "TollRoadPrice{" +
                 "price_id=" + price_id +

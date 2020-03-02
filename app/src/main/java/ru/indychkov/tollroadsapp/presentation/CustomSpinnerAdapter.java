@@ -14,7 +14,7 @@ import ru.indychkov.tollroadsapp.R;
 public class CustomSpinnerAdapter extends BaseAdapter {
     private final List<String> data;
 
-    public CustomSpinnerAdapter(List<String> data) {
+    CustomSpinnerAdapter(List<String> data) {
         this.data = new ArrayList<>(data);
     }
 
