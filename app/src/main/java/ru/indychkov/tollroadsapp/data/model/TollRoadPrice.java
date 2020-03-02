@@ -30,10 +30,30 @@ public class TollRoadPrice {
     @Expose
     private String part_name;
 
-    @ColumnInfo(name = "price")
-    @SerializedName("price")
+    @ColumnInfo(name = "category")
+    @SerializedName("category")
     @Expose
-    private int price;
+    private int category;
+
+    @ColumnInfo(name = "base_price")
+    @SerializedName("base_price")
+    @Expose
+    private int base_price;
+
+    @ColumnInfo(name = "base_night_price")
+    @SerializedName("base_night_price")
+    @Expose
+    private int base_night_price;
+
+    @ColumnInfo(name = "base_avtodor_price")
+    @SerializedName("base_avtodor_price")
+    @Expose
+    private int base_avtodor_price;
+
+    @ColumnInfo(name = "base_avtodor_night_price")
+    @SerializedName("base_avtodor_night_price")
+    @Expose
+    private int base_avtodor_night_price;
 
     public long getPrice_id() {
         return price_id;
@@ -51,12 +71,44 @@ public class TollRoadPrice {
         this.part_name = part_name;
     }
 
-    public int getPrice() {
-        return price;
+    public int getCategory() {
+        return category;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public int getBase_price() {
+        return base_price;
+    }
+
+    public void setBase_price(int base_price) {
+        this.base_price = base_price;
+    }
+
+    public int getBase_night_price() {
+        return base_night_price;
+    }
+
+    public void setBase_night_price(int base_night_price) {
+        this.base_night_price = base_night_price;
+    }
+
+    public int getBase_avtodor_price() {
+        return base_avtodor_price;
+    }
+
+    public void setBase_avtodor_price(int base_avtodor_price) {
+        this.base_avtodor_price = base_avtodor_price;
+    }
+
+    public int getBase_avtodor_night_price() {
+        return base_avtodor_night_price;
+    }
+
+    public void setBase_avtodor_night_price(int base_avtodor_night_price) {
+        this.base_avtodor_night_price = base_avtodor_night_price;
     }
 
     @Ignore
@@ -65,6 +117,11 @@ public class TollRoadPrice {
         return "TollRoadPrice{" +
                 "price_id=" + price_id +
                 ", part_name='" + part_name + '\'' +
+                ", category=" + category +
+                ", base_price=" + base_price +
+                ", base_night_price=" + base_night_price +
+                ", base_avtodor_price=" + base_avtodor_price +
+                ", base_avtodor_night_price=" + base_avtodor_night_price +
                 '}';
     }
 }

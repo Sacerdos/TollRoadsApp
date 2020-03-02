@@ -9,6 +9,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.indychkov.tollroadsapp.R;
+
 public class CustomSpinnerAdapter extends BaseAdapter {
     private final List<String> data;
 
@@ -35,7 +37,7 @@ public class CustomSpinnerAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext())
-                    .inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
+                    .inflate(R.layout.spinner_item, parent, false);
             Holder holder = new Holder(convertView);
             convertView.setTag(holder);
         }
@@ -48,7 +50,7 @@ public class CustomSpinnerAdapter extends BaseAdapter {
         private TextView text;
 
         private Holder(View view) {
-            text = view.findViewById(android.R.id.text1);
+            text = view.findViewById(R.id.text1);
         }
 
     }

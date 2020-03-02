@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import ru.indychkov.tollroadsapp.data.model.TollRoadPart;
+import ru.indychkov.tollroadsapp.data.model.TollRoadPrice;
 
 public class TollRoadsInteractor  {
     private final ITollRoadRepository tollRoadRepository;
@@ -32,5 +33,9 @@ public class TollRoadsInteractor  {
 
     public List<TollRoadPart> getFinalPath(String selectedRoad, boolean isFromMoscow, double sectionFrom, double sectionTo) {
         return tollRoadRepository.getFinalPath(selectedRoad, isFromMoscow, sectionFrom, sectionTo);
+    }
+
+    public TollRoadPrice getPrice(String part_name, int category) {
+        return tollRoadRepository.getPrice(part_name, category);
     }
 }

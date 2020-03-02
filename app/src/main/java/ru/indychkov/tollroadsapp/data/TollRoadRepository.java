@@ -1,12 +1,10 @@
 package ru.indychkov.tollroadsapp.data;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import java.util.List;
 
 import ru.indychkov.tollroadsapp.data.database.TollRoadDatabase;
 import ru.indychkov.tollroadsapp.data.model.TollRoadPart;
+import ru.indychkov.tollroadsapp.data.model.TollRoadPrice;
 import ru.indychkov.tollroadsapp.interactor.ITollRoadRepository;
 
 public class TollRoadRepository implements ITollRoadRepository {
@@ -41,4 +39,11 @@ public class TollRoadRepository implements ITollRoadRepository {
     public List<TollRoadPart> getFinalPath(String selectedRoad, boolean isFromMoscow, double sectionFrom, double sectionTo) {
         return db.tollRoadDAO().getFinalPath(selectedRoad, sectionFrom, sectionTo);
     }
+
+    @Override
+    public TollRoadPrice getPrice(String part_name, int category) {
+        return db.tollRoadDAO().getPrice(part_name, category);
+    }
+
+
 }

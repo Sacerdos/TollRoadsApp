@@ -44,6 +44,6 @@ public interface TollRoadDAO {
     @Query("SELECT * from road_part WHERE main_road_name=:main_name AND section_order BETWEEN :from AND :to ORDER BY section_order")
     List<TollRoadPart> getFinalPath(String main_name, double from, double to);
 
-    /*@Query("SELECT * from road_part_price WHERE part_name=:part_name")
-    List<TollRoadPart> getPrice(String part_name);*/
+    @Query("SELECT * from road_part_price WHERE part_name=:part_name AND category=:category")
+    TollRoadPrice getPrice(String part_name, int category);
 }

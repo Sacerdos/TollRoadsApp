@@ -1,11 +1,9 @@
 package ru.indychkov.tollroadsapp.presentation;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,11 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ru.indychkov.tollroadsapp.R;
-import ru.indychkov.tollroadsapp.data.model.TollRoadPart;
+import ru.indychkov.tollroadsapp.data.model.TollRoadPrice;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
     private Context context;
-    private List<TollRoadPart> mPersonList;
+    private List<TollRoadPrice> priceList;
+    boolean isNight;
+    boolean hasAvtodor;
 
     public RecyclerViewAdapter(Context context) {
         this.context = context;
@@ -33,25 +33,64 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.textView.setText((mPersonList.get(position).getSection_order() + " " + mPersonList.get(position).getPart_name()));
+        String price = "";
+        if (hasAvtodor) {
+            if (isNight) {
+                price = priceList.get(position).getBase_avtodor_night_price() + " \u20BD";
+            } else {
+                price = priceList.get(position).getBase_avtodor_price() + " \u20BD";
+            }
+        } else {
+            if (isNight) {
+                price = priceList.get(position).getBase_night_price() + " \u20BD";
+            } else {
+                price = priceList.get(position).getBase_price() + " \u20BD";
+            }
+        }
+        holder.textView.setText(String.format("%s\n%d категория\n%s", priceList.get(position).getPart_name(), priceList.get(position).getCategory(), price));
+
     }
 
     @Override
     public int getItemCount() {
-        if (mPersonList == null) {
+        if (priceList == null) {
             return 0;
         }
-        return mPersonList.size();
+        return priceList.size();
     }
 
-    public void setTasks(List<TollRoadPart> personList) {
-        mPersonList = personList;
+    public int getSum() {
+        int sum = 0;
+        for (TollRoadPrice element :
+                this.priceList) {
+            if (hasAvtodor) {
+                if (isNight) {
+                    sum += element.getBase_avtodor_night_price();
+                } else {
+                    sum += element.getBase_avtodor_price();
+                }
+            } else {
+                if (isNight) {
+                    sum += element.getBase_night_price();
+                } else {
+                    sum += element.getBase_price();
+                }
+            }
+        }
+        return sum;
+    }
+
+    public void setTasks(List<TollRoadPrice> personList, boolean isNight, boolean hasAvtodor) {
+        priceList = personList;
+        this.isNight = isNight;
+        this.hasAvtodor = hasAvtodor;
         notifyDataSetChanged();
     }
 
-    public List<TollRoadPart> getTasks() {
 
-        return mPersonList;
+    public List<TollRoadPrice> getTasks() {
+
+        return priceList;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
