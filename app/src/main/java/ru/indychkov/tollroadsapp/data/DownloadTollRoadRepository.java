@@ -37,7 +37,7 @@ public class DownloadTollRoadRepository implements IDownloadTollRoadRepository {
         }
         for (TollRoadName element :
                 response.body()) {
-            System.out.println(element.toString());
+
         }
         return response.body();
 
@@ -55,7 +55,7 @@ public class DownloadTollRoadRepository implements IDownloadTollRoadRepository {
         }
         for (TollRoadPart element :
                 response.body()) {
-            System.out.println(element.toString());
+
         }
         return response.body();
     }

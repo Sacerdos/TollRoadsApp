@@ -127,8 +127,8 @@ public class TollRoadViewModel extends ViewModel {
             for (TollRoadPart element :
                     roadPart) {
                 if (isFromMoscow) {
-                    System.out.println("sprinnerFrom" + element.toString());
-                    System.out.println(element.isIn());
+
+
                     tempFrom.add(element.getKm_start() + " km " + (element.isIn() ? "in" : "") + (element.isOut() ? "out" : ""));
                 } else {
                     tempFrom.add(element.getKm_end() + " km " + (element.isIn() ? "in" : "") + (element.isOut() ? "out" : ""));
@@ -179,7 +179,7 @@ public class TollRoadViewModel extends ViewModel {
                     Math.min(sectionFrom.getValue(), sectionTo.getValue()), Math.max(sectionFrom.getValue(), sectionTo.getValue()));
             for (TollRoadPart element :
                     data) {
-                System.out.println(element.toString());
+
                 if (isFromMoscow) {
                     if (element.getSection_order() == Math.min(sectionFrom.getValue(), sectionTo.getValue())) {
                         if (tempNameFrom.equals(element.getPart_name())) {
@@ -307,7 +307,6 @@ public class TollRoadViewModel extends ViewModel {
                 List<TollRoadPrice> price = new ArrayList<>();
                 for (TollRoadPart element :
                         finalPath.getValue()) {
-                    System.out.println(element.getPart_name());
                     price.add(tollRoadsInteractor.getPrice(element.getPart_name(), category));
                 }
                 prices.postValue(price);
