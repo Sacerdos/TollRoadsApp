@@ -1,11 +1,5 @@
 package ru.indychkov.tollroadsapp.presentation;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +10,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import ru.indychkov.tollroadsapp.R;
 
 public class TollRoadMainActivity extends AppCompatActivity {
@@ -24,7 +24,6 @@ public class TollRoadMainActivity extends AppCompatActivity {
     private Spinner spinnerTo;
     private Switch switchIsFromMoscow;
     private Switch switchIsNight;
-    private CheckBox checkHasAvtodor;
     private Button buttonCalculate;
     private TollRoadViewModel tollRoadViewModel;
     private RecyclerView pathRecyclerView;
@@ -32,6 +31,7 @@ public class TollRoadMainActivity extends AppCompatActivity {
     private CheckBox checkIs2Cat;
     private CheckBox checkIs3Cat;
     private CheckBox checkIs4Cat;
+    private CheckBox checkHasAvtodor;
     private String selectedRoad;
     private TextView resultText;
     private RecyclerViewAdapter recyclerViewAdapter;
@@ -45,6 +45,7 @@ public class TollRoadMainActivity extends AppCompatActivity {
         setup();
 
     }
+
     private void initViews() {
         pathRecyclerView = findViewById(R.id.recycler_view);
         buttonCalculate = findViewById(R.id.button_calculate);
@@ -68,6 +69,7 @@ public class TollRoadMainActivity extends AppCompatActivity {
 
 
     }
+
     private void initListeners() {
         switchIsNight.setOnCheckedChangeListener((buttonView, isChecked) -> tollRoadViewModel.setNight(isChecked));
         checkHasAvtodor.setOnCheckedChangeListener((buttonView, isChecked) -> tollRoadViewModel.setHasAvtodor(isChecked));
@@ -108,6 +110,7 @@ public class TollRoadMainActivity extends AppCompatActivity {
                 selectedRoad = spinnerRoad.getSelectedItem().toString();
                 tollRoadViewModel.loadFromRoadParts(selectedRoad);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -117,6 +120,7 @@ public class TollRoadMainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 tollRoadViewModel.setFromSection(spinnerFrom.getSelectedItem().toString(), position);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -127,6 +131,7 @@ public class TollRoadMainActivity extends AppCompatActivity {
                 buttonCalculate.setEnabled(true);
                 tollRoadViewModel.setToSection(spinnerTo.getSelectedItem().toString(), position);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
